@@ -4,49 +4,64 @@ A comprehensive guide to building and deploying full-stack applications using Sv
 
 ---
 
-# Part 1: 0 to EFN
+# Part 1: 0 to EFN (Main Course)
 
 ## Building a Todo App with SvelteKit + TursoDB
 
-### 📚 Module 1: Development Environment
+### 💻 Module 1: Development Environment Setup
 
 **Setting up your workspace**
 
-- VS Code Setup with essential extensions
+- VS Code Installation and Setup
+- Essential VS Code Extensions
+  - Live Server
+  - HTML/CSS Support
+  - JavaScript Support
+  - Git Extensions
 - Basic Terminal Commands
-- Node.js and npm basics
+- Git Installation and Basics
+- Node.js and npm Setup
+- Package.json and Dependencies
 
 ✅ **Tasks**
 
-- Set up VS Code with Svelte extension
+- Install VS Code and essential extensions
+- Learn basic VS Code features
+- Set up Live Server for HTML preview
 - Install Node.js and npm
-- Learn basic terminal navigation
+- Initialize a project with npm
+- Basic version control with Git
 
-### 🎨 Module 2: Frontend Basics
+### 🎨 Module 2: Frontend Fundamentals
 
 **HTML + CSS Essentials**
 
-- Basic HTML Tags
-- Basic HTML Forms
-- CSS Selectors
-- CSS Flexbox
+- Basic HTML Tags and Structure
+- HTML Forms and Input Elements
+- CSS Selectors and Properties
+- CSS Flexbox and Grid
 - CSS Responsive Design Basics
 
 ✅ **Tasks**
 
-- Create a simple form with styling
+- Create a simple responsive webpage
+- Style a form with modern CSS
 
 **JavaScript Essentials**
 
 - Variables and Data Types
-- Functions
-- If Else Statements
+- Functions and Scope
+- Control Flow (If/Else, Loops)
 - Working with Arrays and Objects
+- DOM Manipulation
 - Event Handling
+- Async JavaScript Basics (Promises, async/await)
 
 ✅ **Tasks**
 
-- Create a simple interactive webpage
+- Build interactive features
+- Handle form submissions
+- Make API calls
 
 ### ⚡ Module 3: Svelte & SvelteKit
 
@@ -171,7 +186,9 @@ A comprehensive guide to building and deploying full-stack applications using Sv
 
 ---
 
-# Part 2: EFN to 100
+# Part 2: EFN to 100 (Optional but Recommended)
+
+_Note: This advanced path is optional but recommended for developers who want to excel in their careers. While you can build great applications with the main course knowledge, these advanced topics will enhance your professional capabilities._
 
 ## Mastering Web Development with SvelteKit
 

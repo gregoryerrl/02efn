@@ -23,22 +23,39 @@ A fast-track guide to get you from zero to a competent web developer. This proje
 
 ## Learning Paths
 
-### 🎯 Primary Path: Zero to EFN
+### 🎯 Primary Path: Zero to EFN (02efn)
 
-This is our main path, designed to get you from complete beginner to building and deploying real applications as quickly as possible.
+This is our main path, designed to get you from complete beginner to building and deploying real applications as quickly as possible. You'll learn:
 
-### 🌟 Optional Advanced Path: EFN to 100
+- Development environment setup
+- Frontend fundamentals (HTML, CSS, JavaScript)
+- Framework basics (React/Svelte)
+- Database operations
+- Authentication
+- Building a complete todo application
+- Deployment to production
 
-Once you've completed the main Zero to EFN path, you can optionally continue your journey with our advanced course. This path is for those who want to deepen their knowledge:
+### 🌟 Optional Advanced Path: EFN to 100 (Completely Optional)
 
-- Deep dive into concepts
-- Advanced techniques
-- Enterprise-level skills
+After mastering the basics with 02efn, you can choose to continue with our advanced course. This optional path is for those who want to dive deeper into professional development:
+
+- Advanced JavaScript & TypeScript
+- Deep framework knowledge
+- Complex state management
+- Database optimization
+- Server architecture
+- Production-grade deployment
+- Performance optimization
+- Security best practices
+
+_Note: This advanced path is entirely optional and not required for building functional applications. Many developers can build successful projects and even start their careers with just the 02efn knowledge._
 
 ### 📚 Combined Journey: Zero to 100
 
-For those who want to commit to the complete journey from day one:
+For those who know from the start they want the complete experience:
 
-- Comprehensive learning path combining both Zero to EFN and EFN to 100
-- All concepts covered
+- Comprehensive learning path combining both Zero to EFN and the optional EFN to 100
+- All concepts covered from beginner to advanced
 - Full professional development journey
+
+_Remember: You can always start with 02efn and decide later if you want to pursue the advanced topics._
