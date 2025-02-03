@@ -1,0 +1,92 @@
+{
+	"data": [
+		{
+			"title": "Current Date Basics",
+			"explanation": "Getting the current date in Sveltekit. Understanding different ways to represent the current date and time is fundamental for any date manipulation.",
+			"code": "let now = new Date();\n\nconsole.log('ISO String:', now.toISOString());\nconsole.log('Local String:', now.toLocaleString());\nconsole.log('UTC String:', now.toUTCString());\nconsole.log('Timestamp:', now.getTime());",
+			"outputs": [
+				{
+					"label": "ISO",
+					"value": "$CURRENT_ISO_DATE"
+				},
+				{
+					"label": "Local",
+					"value": "$CURRENT_LOCAL_DATE"
+				},
+				{
+					"label": "UTC",
+					"value": "$CURRENT_UTC_DATE"
+				},
+				{
+					"label": "Timestamp",
+					"value": "$CURRENT_TIMESTAMP"
+				}
+			]
+		},
+		{
+			"title": "Date Formatting",
+			"explanation": "Formatting dates using Intl.DateTimeFormat. This API provides powerful localization features:\n\n• Numeric formats (short, medium, long)\n• Month names (numeric, short, long)\n• Weekday names (short, long)\n• Time formats (12/24 hour)\n• Time zones\n• Localization for different languages",
+			"code": "let date = new Date();\n\n// Full date and time\nlet fullFormatter = new Intl.DateTimeFormat('en-US', {\n    weekday: 'long',\n    year: 'numeric',\n    month: 'long',\n    day: 'numeric',\n    hour: '2-digit',\n    minute: '2-digit'\n});\n\n// Short date\nlet shortFormatter = new Intl.DateTimeFormat('en-US', {\n    month: 'short',\n    day: 'numeric',\n    year: '2-digit'\n});\n\n// Time only\nlet timeFormatter = new Intl.DateTimeFormat('en-US', {\n    hour: 'numeric',\n    minute: 'numeric',\n    second: 'numeric',\n    hour12: true\n});\n\n// Different locale (German)\nlet germanFormatter = new Intl.DateTimeFormat('de-DE', {\n    weekday: 'long',\n    year: 'numeric',\n    month: 'long',\n    day: 'numeric'\n});\n\nconsole.log('Full:', fullFormatter.format(date));\nconsole.log('Short:', shortFormatter.format(date));\nconsole.log('Time:', timeFormatter.format(date));\nconsole.log('German:', germanFormatter.format(date));",
+			"outputs": [
+				{
+					"label": "Full Format",
+					"value": "$CURRENT_FORMATTED_DATE"
+				},
+				{
+					"label": "Short Format",
+					"value": "$CURRENT_SHORT_DATE"
+				},
+				{
+					"label": "Time Format",
+					"value": "$CURRENT_TIME"
+				},
+				{
+					"label": "German",
+					"value": "$CURRENT_GERMAN_DATE"
+				}
+			]
+		},
+		{
+			"title": "Date Calculations",
+			"explanation": "Common date calculations and manipulations that developers frequently need:\n\n• Adding/subtracting days\n• Working with different time units\n• Comparing dates\n• Getting start/end of periods",
+			"code": "let now = new Date();\n\n// Adding days, months, years\nlet nextWeek = new Date(now);\nnextWeek.setDate(now.getDate() + 7);\n\nlet nextMonth = new Date(now);\nnextMonth.setMonth(now.getMonth() + 1);\n\n// Start of day and end of day\nlet startOfDay = new Date(now.setHours(0, 0, 0, 0));\nlet endOfDay = new Date(now.setHours(23, 59, 59, 999));\n\n// Date comparisons\nlet date1 = new Date('2024-01-01');\nlet date2 = new Date('2024-12-31');\nlet diffInDays = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));\n\nconsole.log('Next week:', nextWeek.toDateString());\nconsole.log('Next month:', nextMonth.toDateString());\nconsole.log('Days between dates:', diffInDays);",
+			"outputs": [
+				{
+					"label": "Next Week",
+					"value": "$NEXT_WEEK_DATE_STRING"
+				},
+				{
+					"label": "Next Month",
+					"value": "$NEXT_MONTH_DATE_STRING"
+				},
+				{
+					"label": "Days Diff",
+					"value": "366 days"
+				}
+			]
+		},
+		{
+			"title": "Timezone Handling",
+			"explanation": "Working with timezones is crucial for international applications. Learn how to:\n\n• Convert between timezones\n• Handle UTC dates\n• Format dates with specific timezones\n• Work with local vs UTC time",
+			"code": "let date = new Date();\n\n// UTC methods\nconsole.log('UTC Hours:', date.getUTCHours());\nconsole.log('Local Hours:', date.getHours());\n\n// Timezone specific formatting\nlet tzFormatter = new Intl.DateTimeFormat('en-US', {\n    timeZone: 'America/New_York',\n    dateStyle: 'full',\n    timeStyle: 'long'\n});\n\n// ISO with timezone offset\nlet isoTz = new Date().toLocaleString('en-US', {\n    timeZone: 'America/Los_Angeles'\n});",
+			"outputs": [
+				{
+					"label": "UTC Time",
+					"value": "$CURRENT_UTC_TIME"
+				},
+				{
+					"label": "Local Time",
+					"value": "$CURRENT_LOCAL_TIME"
+				},
+				{
+					"label": "New York",
+					"value": "$CURRENT_NY_TIME"
+				},
+				{
+					"label": "Los Angeles",
+					"value": "$CURRENT_LA_TIME"
+				}
+			]
+		}
+	]
+}

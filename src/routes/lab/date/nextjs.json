@@ -1,0 +1,65 @@
+{
+	"data": [
+		{
+			"title": "Current Date Basics",
+			"explanation": "Getting the current date in NextJS. Learn different date representations and when to use them in React components. Server components can directly use Date without client-side hydration.",
+			"code": "export default function DateBasics() {\n  const now = new Date();\n\n  return (\n    <div className=\"space-y-2\">\n      <p>ISO: {now.toISOString()}</p>\n      <p>Local: {now.toLocaleString()}</p>\n      <p>UTC: {now.toUTCString()}</p>\n      <p>Timestamp: {now.getTime()}</p>\n    </div>\n  );\n}",
+			"outputs": [
+				{
+					"label": "ISO",
+					"value": "$CURRENT_ISO_DATE"
+				},
+				{
+					"label": "Local",
+					"value": "$CURRENT_LOCAL_DATE"
+				},
+				{
+					"label": "UTC",
+					"value": "$CURRENT_UTC_DATE"
+				},
+				{
+					"label": "Timestamp",
+					"value": "$CURRENT_TIMESTAMP"
+				}
+			]
+		},
+		{
+			"title": "Date Formatting",
+			"explanation": "Formatting dates in NextJS using Intl.DateTimeFormat. This component demonstrates various formatting options:\n\n• Full date and time with weekday\n• Short date format\n• Time-only format with AM/PM\n• Localized format (German)\n\nThe Intl.DateTimeFormat API is fully supported in NextJS for both server and client components.",
+			"code": "export default function DateFormats() {\n  const date = new Date();\n\n  // Full date and time\n  const fullFormatter = new Intl.DateTimeFormat('en-US', {\n    weekday: 'long',\n    year: 'numeric',\n    month: 'long',\n    day: 'numeric',\n    hour: '2-digit',\n    minute: '2-digit'\n  });\n\n  // Short date\n  const shortFormatter = new Intl.DateTimeFormat('en-US', {\n    month: 'short',\n    day: 'numeric',\n    year: '2-digit'\n  });\n\n  // Time only\n  const timeFormatter = new Intl.DateTimeFormat('en-US', {\n    hour: 'numeric',\n    minute: 'numeric',\n    second: 'numeric',\n    hour12: true\n  });\n\n  // Different locale (German)\n  const germanFormatter = new Intl.DateTimeFormat('de-DE', {\n    weekday: 'long',\n    year: 'numeric',\n    month: 'long',\n    day: 'numeric'\n  });\n\n  return (\n    <div className=\"space-y-2\">\n      <p>Full: {fullFormatter.format(date)}</p>\n      <p>Short: {shortFormatter.format(date)}</p>\n      <p>Time: {timeFormatter.format(date)}</p>\n      <p>German: {germanFormatter.format(date)}</p>\n    </div>\n  );\n}",
+			"outputs": [
+				{
+					"label": "Full Format",
+					"value": "$CURRENT_FORMATTED_DATE"
+				},
+				{
+					"label": "Short Format",
+					"value": "$CURRENT_SHORT_DATE"
+				},
+				{
+					"label": "Time Format",
+					"value": "$CURRENT_TIME"
+				},
+				{
+					"label": "German",
+					"value": "$CURRENT_GERMAN_DATE"
+				}
+			]
+		},
+		{
+			"title": "Date Calculations",
+			"explanation": "Performing date calculations in NextJS with React state management.",
+			"code": "'use client';\n\nexport default function DateCalculations() {\n  const today = new Date();\n  const nextWeek = new Date(today);\n  nextWeek.setDate(today.getDate() + 7);\n\n  return (\n    <div>\n      <p>Today: {today.toDateString()}</p>\n      <p>Next week: {nextWeek.toDateString()}</p>\n    </div>\n  );\n}",
+			"outputs": [
+				{
+					"label": "Today",
+					"value": "$CURRENT_DATE_STRING"
+				},
+				{
+					"label": "Next Week",
+					"value": "$NEXT_WEEK_DATE_STRING"
+				}
+			]
+		}
+	]
+}
