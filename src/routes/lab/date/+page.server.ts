@@ -22,6 +22,12 @@ const processDatePlaceholders = (data: DateExample[]) => {
 	const nextMonth = new Date(now);
 	nextMonth.setMonth(now.getMonth() + 1);
 
+	// Get client timezone info (using server timezone as fallback)
+	const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	const offset = -new Date().getTimezoneOffset() / 60; // Convert to hours and invert for UTC+X format
+	const businessStart = new Date().setHours(9, 0, 0, 0);
+	const businessEnd = new Date().setHours(17, 0, 0, 0);
+
 	// Full date and time formatter
 	const fullFormatter = new Intl.DateTimeFormat('en-US', {
 		weekday: 'long',
@@ -76,6 +82,18 @@ const processDatePlaceholders = (data: DateExample[]) => {
 		timeStyle: 'long'
 	});
 
+	// Client timezone formatter
+	const clientFormatter = new Intl.DateTimeFormat('en-US', {
+		timeZone: timezone,
+		weekday: 'long',
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric',
+		timeZoneName: 'long'
+	});
+
 	return data.map((item) => ({
 		...item,
 		outputs: item.outputs.map((output) => ({
@@ -96,6 +114,13 @@ const processDatePlaceholders = (data: DateExample[]) => {
 				.replace('$CURRENT_LOCAL_TIME', timeFormatter.format(now))
 				.replace('$CURRENT_NY_TIME', nyFormatter.format(now))
 				.replace('$CURRENT_LA_TIME', laFormatter.format(now))
+				.replace('$CLIENT_TIMEZONE', timezone)
+				.replace('$CLIENT_UTC_OFFSET', offset.toString())
+				.replace('$CLIENT_LOCAL_TIME', clientFormatter.format(now))
+				.replace(
+					'$CLIENT_BUSINESS_HOURS',
+					`${new Date(businessStart).toLocaleTimeString()} to ${new Date(businessEnd).toLocaleTimeString()}`
+				)
 		}))
 	}));
 };

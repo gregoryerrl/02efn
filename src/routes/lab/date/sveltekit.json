@@ -87,6 +87,29 @@
 					"value": "$CURRENT_LA_TIME"
 				}
 			]
+		},
+		{
+			"title": "Client Timezone Detection",
+			"explanation": "Detecting and working with the client's timezone is essential for providing localized date experiences. Learn how to:\n\n• Detect client timezone\n• Handle timezone offsets\n• Format dates in client's timezone\n• Calculate working hours across timezones",
+			"code": "// Get client's timezone\nlet timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;\n\n// Get timezone offset in minutes\nlet offset = new Date().getTimezoneOffset();\n\n// Format date in client's timezone\nlet clientFormatter = new Intl.DateTimeFormat(undefined, {\n    timeZone: timezone,\n    weekday: 'long',\n    year: 'numeric',\n    month: 'long',\n    day: 'numeric',\n    hour: 'numeric',\n    minute: 'numeric',\n    timeZoneName: 'long'\n});\n\n// Working with business hours\nlet businessStart = new Date().setHours(9, 0, 0, 0);\nlet businessEnd = new Date().setHours(17, 0, 0, 0);\n\nconsole.log('Your timezone:', timezone);\nconsole.log('UTC offset:', -offset/60, 'hours');\nconsole.log('Local time:', clientFormatter.format(new Date()));\nconsole.log('Business hours (local):', \n    new Date(businessStart).toLocaleTimeString(), 'to',\n    new Date(businessEnd).toLocaleTimeString()\n);",
+			"outputs": [
+				{
+					"label": "Timezone",
+					"value": "$CLIENT_TIMEZONE"
+				},
+				{
+					"label": "UTC Offset",
+					"value": "$CLIENT_UTC_OFFSET hours"
+				},
+				{
+					"label": "Local Time",
+					"value": "$CLIENT_LOCAL_TIME"
+				},
+				{
+					"label": "Work Hours",
+					"value": "$CLIENT_BUSINESS_HOURS"
+				}
+			]
 		}
 	]
 }
