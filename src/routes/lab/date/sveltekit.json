@@ -61,7 +61,7 @@
 				},
 				{
 					"label": "Days Diff",
-					"value": "366 days"
+					"value": "$DAYS_BETWEEN"
 				}
 			]
 		},

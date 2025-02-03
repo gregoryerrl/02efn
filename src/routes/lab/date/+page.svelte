@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { PageData } from './$types';
-    import { onMount } from 'svelte';
     import Prism from 'prismjs';
     import 'prismjs/themes/prism-tomorrow.css';
     import 'prismjs/components/prism-typescript';
@@ -10,7 +9,8 @@
     import { ChevronLeft } from 'lucide-svelte';
 
     let { data }: { data: PageData } = $props();
-    let processedData = data;
+    let mounted = $state(false);
+    let processedData = $state(data);
 
     const handleFrameworkSelect = (framework: string) => {
         const url = new URL(window.location.href);
@@ -22,116 +22,143 @@
     const processClientDates = () => {
         if (typeof window === 'undefined') return data;
 
-        const now = new Date();
-        const nextWeek = new Date(now);
-        nextWeek.setDate(now.getDate() + 7);
-        
-        const nextMonth = new Date(now);
-        nextMonth.setMonth(now.getMonth() + 1);
+        try {
+            const now = new Date();
+            const nextWeek = new Date(now);
+            nextWeek.setDate(now.getDate() + 7);
+            
+            const nextMonth = new Date(now);
+            nextMonth.setMonth(now.getMonth() + 1);
 
-        // Get client timezone info
-        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const offset = -new Date().getTimezoneOffset() / 60;
-        const businessStart = new Date().setHours(9, 0, 0, 0);
-        const businessEnd = new Date().setHours(17, 0, 0, 0);
+            // Calculate days between Jan 1 and Dec 31, 2024
+            const date1 = new Date('2024-01-01');
+            const date2 = new Date('2024-12-31');
+            const diffInDays = Math.floor((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24));
 
-        // Formatters
-        const fullFormatter = new Intl.DateTimeFormat('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
+            // Get client timezone info
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const offset = -new Date().getTimezoneOffset() / 60;
+            const businessStart = new Date().setHours(9, 0, 0, 0);
+            const businessEnd = new Date().setHours(17, 0, 0, 0);
 
-        const shortFormatter = new Intl.DateTimeFormat('en-US', {
-            month: 'short',
-            day: 'numeric',
-            year: '2-digit'
-        });
+            // Formatters
+            const fullFormatter = new Intl.DateTimeFormat('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
 
-        const timeFormatter = new Intl.DateTimeFormat('en-US', {
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            hour12: true
-        });
+            const shortFormatter = new Intl.DateTimeFormat('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: '2-digit'
+            });
 
-        const germanFormatter = new Intl.DateTimeFormat('de-DE', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
+            const timeFormatter = new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                hour12: true
+            });
 
-        const utcFormatter = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'UTC',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            hour12: true
-        });
+            const germanFormatter = new Intl.DateTimeFormat('de-DE', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
 
-        const nyFormatter = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'America/New_York',
-            dateStyle: 'full',
-            timeStyle: 'long'
-        });
+            const utcFormatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'UTC',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                hour12: true
+            });
 
-        const laFormatter = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'America/Los_Angeles',
-            dateStyle: 'full',
-            timeStyle: 'long'
-        });
+            const nyFormatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'America/New_York',
+                dateStyle: 'full',
+                timeStyle: 'long'
+            });
 
-        const clientFormatter = new Intl.DateTimeFormat('en-US', {
-            timeZone: timezone,
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            timeZoneName: 'long'
-        });
+            const laFormatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'America/Los_Angeles',
+                dateStyle: 'full',
+                timeStyle: 'long'
+            });
 
-        return {
-            ...data,
-            data: data.data.map(item => ({
-                ...item,
-                outputs: item.outputs.map(output => ({
-                    ...output,
-                    value: output.value
-                        .replace('$CURRENT_ISO_DATE', now.toISOString())
-                        .replace('$CURRENT_LOCAL_DATE', now.toLocaleString())
-                        .replace('$CURRENT_UTC_DATE', now.toUTCString())
-                        .replace('$CURRENT_TIMESTAMP', now.getTime().toString())
-                        .replace('$CURRENT_FORMATTED_DATE', fullFormatter.format(now))
-                        .replace('$CURRENT_SHORT_DATE', shortFormatter.format(now))
-                        .replace('$CURRENT_TIME', timeFormatter.format(now))
-                        .replace('$CURRENT_GERMAN_DATE', germanFormatter.format(now))
-                        .replace('$CURRENT_DATE_STRING', now.toDateString())
-                        .replace('$NEXT_WEEK_DATE_STRING', nextWeek.toDateString())
-                        .replace('$NEXT_MONTH_DATE_STRING', nextMonth.toDateString())
-                        .replace('$CURRENT_UTC_TIME', utcFormatter.format(now))
-                        .replace('$CURRENT_LOCAL_TIME', timeFormatter.format(now))
-                        .replace('$CURRENT_NY_TIME', nyFormatter.format(now))
-                        .replace('$CURRENT_LA_TIME', laFormatter.format(now))
-                        .replace('$CLIENT_TIMEZONE', timezone)
-                        .replace('$CLIENT_UTC_OFFSET', offset.toString())
-                        .replace('$CLIENT_LOCAL_TIME', clientFormatter.format(now))
-                        .replace('$CLIENT_BUSINESS_HOURS', 
-                            `${new Date(businessStart).toLocaleTimeString()} to ${new Date(businessEnd).toLocaleTimeString()}`
-                        )
+            const clientFormatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: timezone,
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                timeZoneName: 'long'
+            });
+
+            return {
+                ...data,
+                data: data.data.map(item => ({
+                    ...item,
+                    outputs: item.outputs.map(output => ({
+                        ...output,
+                        value: output.value
+                            .replace('$CURRENT_ISO_DATE', now.toISOString())
+                            .replace('$CURRENT_LOCAL_DATE', now.toLocaleString())
+                            .replace('$CURRENT_UTC_DATE', now.toUTCString())
+                            .replace('$CURRENT_TIMESTAMP', now.getTime().toString())
+                            .replace('$CURRENT_FORMATTED_DATE', fullFormatter.format(now))
+                            .replace('$CURRENT_SHORT_DATE', shortFormatter.format(now))
+                            .replace('$CURRENT_TIME', timeFormatter.format(now))
+                            .replace('$CURRENT_GERMAN_DATE', germanFormatter.format(now))
+                            .replace('$CURRENT_DATE_STRING', now.toDateString())
+                            .replace('$NEXT_WEEK_DATE_STRING', nextWeek.toDateString())
+                            .replace('$NEXT_MONTH_DATE_STRING', nextMonth.toDateString())
+                            .replace('$CURRENT_UTC_TIME', utcFormatter.format(now))
+                            .replace('$CURRENT_LOCAL_TIME', timeFormatter.format(now))
+                            .replace('$CURRENT_NY_TIME', nyFormatter.format(now))
+                            .replace('$CURRENT_LA_TIME', laFormatter.format(now))
+                            .replace('$CLIENT_TIMEZONE', timezone)
+                            .replace('$CLIENT_UTC_OFFSET', offset.toString())
+                            .replace('$CLIENT_LOCAL_TIME', clientFormatter.format(now))
+                            .replace('$CLIENT_BUSINESS_HOURS', 
+                                `${new Date(businessStart).toLocaleTimeString()} to ${new Date(businessEnd).toLocaleTimeString()}`
+                            )
+                            .replace('$DAYS_BETWEEN', `${diffInDays} days`)
+                    }))
                 }))
-            }))
-        };
+            };
+        } catch (error) {
+            console.error('Error processing dates:', error);
+            return data;
+        }
     }
 
+    // Initialize on mount
     $effect(() => {
-        processedData = processClientDates();
-        Prism.highlightAll();
+        if (typeof window !== 'undefined' && !mounted) {
+            mounted = true;
+            processedData = processClientDates();
+            requestAnimationFrame(() => {
+                Prism.highlightAll();
+            });
+        }
+    });
+
+    // Update when data changes
+    $effect(() => {
+        if (mounted) {
+            processedData = processClientDates();
+            requestAnimationFrame(() => {
+                Prism.highlightAll();
+            });
+        }
     });
 </script>
 
