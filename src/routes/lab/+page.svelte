@@ -2,7 +2,7 @@
     import { ChevronLeft, Calendar } from 'lucide-svelte';
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+<div class="min-h-screen w-full">
     <div class="container mx-auto px-4 py-8">
         <div class="flex items-center gap-2 mb-8">
             <a href="/" class="text-gray-600 hover:text-gray-900">

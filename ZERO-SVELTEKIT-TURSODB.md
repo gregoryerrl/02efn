@@ -121,7 +121,7 @@ A comprehensive guide to building and deploying full-stack applications using Sv
 
 **User Authentication**
 
-- Auth.js (formerly NextAuth) Setup
+- Clerk-svelte
 - Google Provider Setup
 - Protected Routes
 - Session Management
