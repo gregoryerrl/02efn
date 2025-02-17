@@ -1,5 +1,6 @@
 <script lang="ts">
     import { ArrowRight } from 'lucide-svelte';
+    // Example
 </script>
 
 <div class="h-full w-full">
