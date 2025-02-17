@@ -1,6 +1,5 @@
 <script lang="ts">
     import { ArrowRight } from 'lucide-svelte';
-    import { asdasdasd } from 'asdasdwda';
     // Example
 </script>
 
