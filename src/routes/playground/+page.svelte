@@ -43,7 +43,8 @@
 
     <div class="section">
         <h2>1. Product Database Structure</h2>
-        <pre><code>const productDatabase = {
+        <pre><code>{`
+const productDatabase = {
     "PRD001": {
         name: "Wireless Earbuds",
         price: 19.99,
@@ -51,9 +52,10 @@
         tags: ["audio", "wireless", "bluetooth"],
         inStock: true,
         stockLevel: 45
-    },
+    }
     // ... more products
-};</code></pre>
+};
+`}</code></pre>
         <p><strong>Key Concept</strong>: This is an object where:</p>
         <ul>
             <li>Each key is a unique product ID (e.g., "PRD001")</li>
@@ -64,7 +66,8 @@
 
     <div class="section">
         <h2>2. Search Function Explained</h2>
-        <pre><code>function searchProducts(criteria) {
+        <pre><code>{`
+function searchProducts(criteria) {
     return Object.keys(productDatabase).filter(key => {
         const product = productDatabase[key];
         
@@ -79,7 +82,8 @@
         
         return true;
     });
-}</code></pre>
+}
+`}</code></pre>
         <p><strong>Breaking Down the Search Function</strong>:</p>
         <ol>
             <li><code>Object.keys(productDatabase)</code> gets all product IDs</li>
@@ -91,7 +95,8 @@
 
     <div class="section">
         <h2>3. Search Button Event Listener</h2>
-        <pre><code>document.getElementById('searchButton').addEventListener('click', function() {
+        <pre><code>{`
+document.getElementById('searchButton').addEventListener('click', function() {
     const searchType = document.getElementById('searchType').value;
     let searchCriteria = {};
 
@@ -109,14 +114,15 @@
     // Display results
     resultsDiv.innerHTML = results.map(key => {
         const product = productDatabase[key];
-        return `
+        return \`
             <div class="product-card">
-                <h3>${product.name}</h3>
+                <h3>\${product.name}</h3>
                 <!-- ... product details -->
             </div>
-        `;
+        \`;
     }).join('');
-});</code></pre>
+});
+`}</code></pre>
         <p><strong>Key Steps</strong>:</p>
         <ol>
             <li>Get the search type from the dropdown</li>
@@ -129,7 +135,8 @@
 
     <div class="section">
         <h2>4. Dynamic Search Type Handling</h2>
-        <pre><code>document.getElementById('searchType').addEventListener('change', function() {
+        <pre><code>{`
+document.getElementById('searchType').addEventListener('change', function() {
     // Hide all search inputs
     ['categorySearch', 'priceSearch', 'tagSearch', 'stockSearch']
         .forEach(id => {
@@ -143,7 +150,8 @@
             break;
         // ... other search types
     }
-});</code></pre>
+});
+`}</code></pre>
         <p><strong>How It Works</strong>:</p>
         <ul>
             <li>Listens for changes in the search type dropdown</li>
