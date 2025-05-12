@@ -1,8 +1,8 @@
 <script lang="ts">
-	import '../app.css';
-	let { children } = $props();
+    import type { Snippet } from 'svelte';
+    import type { LayoutData } from './$types';
+
+    let { data, children }: { data: LayoutData, children: Snippet } = $props();
 </script>
 
-<main class="min-h-screen min-w-screen bg-gradient-to-b from-green-600 to-green-300 flex">
-	{@render children()}
-</main>
+{@render children()}
